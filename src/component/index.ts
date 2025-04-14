@@ -33,6 +33,7 @@ export class AIPaste extends HTMLElement {
           </button>
       `;
 
+    this.button = this.querySelector("button")!;
     this.addEventListener("click", (event) => this.handleClick(event));
   }
 
