@@ -3,6 +3,8 @@ import { generateObject } from "ai";
 import { openai } from "@ai-sdk/openai";
 import { FormField, FormValue } from "../shared/types";
 
+export type { FormField } from "../shared/types";
+
 const gpt = openai("gpt-4-turbo");
 
 function toZod(field: FormField) {
