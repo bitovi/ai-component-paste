@@ -18,8 +18,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build --config ./vite.config.extractor.ts && vite build --config ./vite.config.component.ts",
-    "preview": "vite preview",
-    "publish": "npm run build && npm version patch && npm publish && git push --follow-tags"
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
