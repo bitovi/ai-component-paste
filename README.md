@@ -1,12 +1,34 @@
-# AI Component Paste
-
 <div align="center">
   <h1>AI Component Paste</h1>
+  <p><b>Intelligent, AI-powered form filling with a simple copy and paste</b></p>
+</div>
+
+<div align='center'>
+<table>
+  <tr>
+    <td align="center"><h3>⏱️ Save Time</h3>Eliminate tedious manual data entry</td>
+    <td align="center"><h3>🎯 Reduce Errors</h3>AI-powered accuracy in form filling</td>
+    <td align="center"><h3>😌 Better UX</h3>Smoother, faster user experience</td>
+  </tr>
+  <tr>
+    <td align="center"><h3>🔌 Easy to Add</h3>Just a few lines of code to integrate</td>
+    <td align="center"><h3>🧩 Flexible</h3>Works with any form structure</td>
+    <td align="center"><h3>🛠️ Developer Friendly</h3>TypeScript + modern web standards</td>
+  </tr>
+</table>
 </div>
 
 ## Overview
 
-AI Component Paste is a web component and function to run on a server endpoint that enables intelligent form filling using AI. It analyzes clipboard content and automatically populates form fields with relevant information, making data entry faster and more accurate.
+AI Component Paste solves a common frustration, manually transferring data from one source to web forms, in three simple steps:
+
+1. **Copy any text** containing relevant information (email, address, contact details, etc.)
+2. **Click the AI Paste button** in your form
+3. **Watch as fields automatically populate** with the correct information
+
+Behind the scenes, this web component extracts text from your clipboard and sends it to your server. There, our extractor function leverages OpenAI's GPT models to intelligently parse the data and match it to your form fields—creating a seamless, error-free data entry experience.
+
+**[Try the live demo](https://ai-component-paste.bitovi-sandbox.com/)** to see it in action.
 
 ## Installation
 
