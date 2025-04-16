@@ -38,6 +38,11 @@ npm install @bitovi/ai-component-paste
 
 ## Usage
 
+> [!NOTE] **Looking for Something a Little More Hands On? Checkout our Guides**
+>
+> - [Vanilla JS + Express](./guides/vanilla-express)
+> - [Next.js Recipe Tracker](./guides/nextjs) (Under Construction 🚧)
+
 To use AI Component Paste, you'll need three things:
 
 1. **Frontend** An HTML form that includes the <ai-paste> component and the client-side script.
@@ -102,12 +107,12 @@ Once clicked, `ai-paste` will:
 >
 > 🔐 You must set the `OPENAI_API_KEY` as an environment variable on your server. For more on how to create an OpenAI key, see here.
 
-To power the AI form-filling, you’ll need to set up a backend server that handles requests from `<ai-paste>`.
+To power the AI form-filling, you'll need to set up a backend server that handles requests from `<ai-paste>`.
 
 This endpoint should:
 
 1. Accept clipboard text and field metadata
-2. Call extractFormData from @bitovi/ai-component-paste/extractor
+2. Call `extractFormData` from `@bitovi/ai-component-paste/extractor`
 3. Return a key-value map of field names to values
 
 ```ts
@@ -132,13 +137,13 @@ app.listen(3000, () => {
 });
 ```
 
-`extractFormData` handles formatting the request and parsing the result — you don’t need to write any prompt engineering logic yourself. Make sure your environment includes:
+`extractFormData` handles formatting the request and parsing the result — you don't need to write any prompt engineering logic yourself. Make sure your environment includes:
 
 ```
 OPENAI_API_KEY=sk-...
 ```
 
-Once your endpoint is live, set the api attribute in your frontend form’s <ai-paste> to point to it:
+Once your endpoint is live, set the api attribute in your frontend form's <ai-paste> to point to it:
 
 ```html
 <ai-paste api="/extractor"></ai-paste>
