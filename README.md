@@ -38,7 +38,8 @@ npm install @bitovi/ai-component-paste
 
 ## Usage
 
-> [!NOTE] **Looking for Something a Little More Hands On? Checkout our Guides**
+> [!NOTE]
+> **Looking for Something a Little More Hands On? Checkout our Guides**
 >
 > - [Vanilla JS + Express](./guides/vanilla-express)
 > - [Next.js Recipe Tracker](./guides/nextjs) (Under Construction 🚧)
