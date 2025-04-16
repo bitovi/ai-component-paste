@@ -39,9 +39,10 @@ npm install @bitovi/ai-component-paste
 ## Usage
 
 > [!NOTE]
+>
 > **Looking for Something a Little More Hands On? Checkout our Guides**
 >
-> - [Vanilla JS + Express](./guides/vanilla-express)
+> - [Vanilla JS + Express](./guides/vanilla-with-express)
 > - [Next.js Recipe Tracker](./guides/nextjs) (Under Construction 🚧)
 
 To use AI Component Paste, you'll need three things:
