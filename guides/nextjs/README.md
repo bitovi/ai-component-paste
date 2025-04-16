@@ -2,7 +2,9 @@
   <h1>Using AI Component Paste with Next.js</h1>
 </div>
 
-> [!Warning] 🚧 Under Construction 🚧
+> [!Warning]
+>
+> 🚧 Under Construction 🚧
 
 ## Overview
 
