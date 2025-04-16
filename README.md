@@ -108,7 +108,7 @@ Once clicked, `ai-paste` will:
 >
 > 🔐 You must set the `OPENAI_API_KEY` as an environment variable on your server. For more on how to create an OpenAI key, see here.
 
-To power the AI form-filling, you'll need to set up a backend server that handles requests from `<ai-paste>`.
+To power the AI form-filling, you’ll need to set up a backend server that handles requests from `<ai-paste>`.
 
 This endpoint should:
 
@@ -138,13 +138,13 @@ app.listen(3000, () => {
 });
 ```
 
-`extractFormData` handles formatting the request and parsing the result — you don't need to write any prompt engineering logic yourself. Make sure your environment includes:
+`extractFormData` handles formatting the request and parsing the result — you don’t need to write any prompt engineering logic yourself. Make sure your environment includes:
 
 ```
 OPENAI_API_KEY=sk-...
 ```
 
-Once your endpoint is live, set the api attribute in your frontend form's <ai-paste> to point to it:
+Once your endpoint is live, set the api attribute in your frontend form’s <ai-paste> to point to it:
 
 ```html
 <ai-paste api="/extractor"></ai-paste>
@@ -154,7 +154,8 @@ Once your endpoint is live, set the api attribute in your frontend form's <ai-pa
 
 The <ai-paste> component emits custom DOM events you can listen to for logging, analytics, or extending behavior. These events bubble, so you can attach listeners higher up the DOM tree if needed.
 
-> **Note:** if you are using a **Controlled Form** with React you will need to listen to the `ai-paste-extracted` event to update your form state.
+> [!NOTE]
+> If you are using a **Controlled Form** with React you will need to listen to the `ai-paste-extracted` event to update your form state.
 
 `ai-paste-extracted`
 
