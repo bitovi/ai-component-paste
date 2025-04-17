@@ -379,7 +379,7 @@ Then open `src/main.ts` and add the following import to register the web compone
 import "@bitovi/ai-component-paste/component";
 ```
 
-Now, wire it up to your backend by setting the `api` attribute in `index.html`. Update the `<ai-paste>` element to point to your local extraction endpoint:
+Now, update the `<ai-paste>` element by setting the `api` attribute. This will, wire it up to your backend in `index.html` to point to your local extraction endpoint:
 
 ```html
 <div>
@@ -510,7 +510,7 @@ Finally, we need to import our css. This has to be done in two places. First, At
 
 ```diff
 import "@bitovi/ai-component-paste/component";
-+ import "./style.css";
++ import "./styles.css";
 
 const isAIPasteError = (event: Event): event is CustomEvent<Error> => {
   return "detail" in event && event.detail instanceof Error;
