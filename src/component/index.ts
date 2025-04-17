@@ -68,14 +68,10 @@ export class AIPaste extends HTMLElement {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: clipboardText, fields }),
-      }).catch((error) => {
-        this.dispatchError(error instanceof Error ? error : new Error("Failed to extract data."));
-        return error;
       });
 
       if (!response.ok) {
-        this.dispatchError(new Error("Failed to extract data."));
-        return;
+        throw new Error("Failed to extract data.");
       }
 
       const extracted = await response.json();

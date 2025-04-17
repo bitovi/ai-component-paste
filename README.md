@@ -1,12 +1,34 @@
-# AI Component Paste
-
 <div align="center">
   <h1>AI Component Paste</h1>
+  <p><b>Intelligent, AI-powered form filling with a simple copy and paste</b></p>
+</div>
+
+<div align='center'>
+<table>
+  <tr>
+    <td align="center"><h3>⏱️ Save Time</h3>Eliminate tedious manual data entry</td>
+    <td align="center"><h3>🎯 Reduce Errors</h3>AI-powered accuracy in form filling</td>
+    <td align="center"><h3>😌 Better UX</h3>Smoother, faster user experience</td>
+  </tr>
+  <tr>
+    <td align="center"><h3>🔌 Easy to Add</h3>Just a few lines of code to integrate</td>
+    <td align="center"><h3>🧩 Flexible</h3>Works with any form structure</td>
+    <td align="center"><h3>🛠️ Developer Friendly</h3>TypeScript + modern web standards</td>
+  </tr>
+</table>
 </div>
 
 ## Overview
 
-AI Component Paste is a web component and function to run on a server endpoint that enables intelligent form filling using AI. It analyzes clipboard content and automatically populates form fields with relevant information, making data entry faster and more accurate.
+AI Component Paste solves a common frustration, manually transferring data from one source to web forms, in three simple steps:
+
+1. **Copy any text** containing relevant information (email, address, contact details, etc.)
+2. **Click the AI Paste button** in your form
+3. **Watch as fields automatically populate** with the correct information
+
+Behind the scenes, this web component extracts text from your clipboard and sends it to your server. There, our extractor function leverages OpenAI's GPT models to intelligently parse the data and match it to your form fields—creating a seamless, error-free data entry experience.
+
+**[Try the live demo](https://ai-component-paste.bitovi-sandbox.com/)** to see it in action.
 
 ## Installation
 
@@ -16,89 +38,141 @@ npm install @bitovi/ai-component-paste
 
 ## Usage
 
-1. Import the component in your HTML:
+> [!NOTE]
+>
+> **Looking for Something a Little More Hands On? Checkout our Guides**
+>
+> - [Vanilla JS + Express](./guides/vanilla-with-express)
+
+To use AI Component Paste, you'll need three things:
+
+1. **Frontend** An HTML form that includes the <ai-paste> component and the client-side script.
+
+2. **AI Integration** An OpenAI API key
+
+3. **Backend** An API endpoint that accepts clipboard text and field metadata, and returns structured data.
+
+### Frontend Setup
+
+Add the web component inside any HTML form you want to support smart paste on.
+
+**Include the script**
+If you're not using a bundler, import the component directly from [unpkg](https://unpkg.com/)
 
 ```html
-<script type="module">
-  import "@bitovi/ai-component-paste/component";
-</script>
+<script type="module" src="https://unpkg.com/@bitovi/ai-component-paste@0.0.5/dist/component/index.js"></script>
 ```
 
-2. Add the component to your form:
+If you're using a bundler like Vite, import the module:
+
+```ts
+import "@bitovi/ai-component-paste/component";
+```
+
+Add it to a `<form>`. Form inputs must have a `name` attribute defined for `ai-component-paste` to properly scrape the form.
 
 ```html
 <form>
-  <input type="text" name="name" />
-  <input type="email" name="email" />
-  <input type="tel" name="phone" />
+  <label>
+    Name
+    <input name="name" />
+  </label>
 
-  <ai-paste api="YOUR_API_ENDPOINT"></ai-paste>
+  <label>
+    Email
+    <input type="email" name="email" />
+  </label>
+
+  <label>
+    Interest
+    <select name="interest">
+      <option value="demo">Product Demo</option>
+      <option value="pricing">Pricing Info</option>
+    </select>
+  </label>
+
+  <ai-paste api="/extractor"></ai-paste>
 </form>
 ```
 
-3. Configure OpenAI API Key (Server-side)
+Once clicked, `ai-paste` will:
 
-Before setting up the API endpoint, you need to configure your OpenAI API key on the server:
+1. Scrape visible form fields
+2. Read the clipboard text
+3. Send both to your `/extractor` endpoint
+4. Automatically populate the form with AI-generated values
 
-```bash
-# Set the OpenAI API key as an environment variable
-export OPENAI_API_KEY=your-api-key-here
-```
+### Backend Setup
 
-⚠️ **Security Warning**: Never commit your OpenAI API key to version control. Use environment variables or a secure secrets management system. The API key should be kept private and secure.
+> You must run a server — this cannot be done from the frontend.
+>
+> 🔐 You must set the `OPENAI_API_KEY` as an environment variable on your server. For more on how to create an OpenAI key, [see our guide](./guides/open-ai-key).
 
-4. Set up the API endpoint to handle the extraction:
+To power the AI form-filling, you'll need to set up a backend server that handles requests from `<ai-paste>`.
 
-```javascript
+This endpoint should:
+
+1. Accept clipboard text and field metadata
+2. Call `extractFormData` from `@bitovi/ai-component-paste/extractor`
+3. Return a key-value map of field names to values
+
+```ts
+import express from "express";
+
+import type { FormField } from "@bitovi/ai-component-paste/extractor";
 import { extractFormData } from "@bitovi/ai-component-paste/extractor";
 
-// Example API endpoint handler
-app.post("/api/extract", async (req, res) => {
+const app = express();
+app.use(express.json());
+
+app.post<{}, {}, { text: string; fields: FormField[] }>("/extractor", async (req, res) => {
   const { text, fields } = req.body;
-  const extracted = await extractFormData(text, fields);
-  res.json(extracted);
+
+  const result = await extractFormData(text, fields);
+
+  res.json(result);
+});
+
+app.listen(3000, () => {
+  console.log("Extractor API running on http://localhost:3000");
 });
 ```
 
-## API Configuration
+`extractFormData` handles formatting the request and parsing the result — you don't need to write any prompt engineering logic yourself. Make sure your environment includes:
 
-The `ai-paste` component requires an API endpoint to be configured:
+```
+OPENAI_API_KEY=sk-...
+```
+
+Once your endpoint is live, set the api attribute in your frontend form's <ai-paste> to point to it:
 
 ```html
-<ai-paste api="https://your-api.com/extract"></ai-paste>
+<ai-paste api="/extractor"></ai-paste>
 ```
 
 ## Events
 
-The component dispatches two events:
+The <ai-paste> component emits custom DOM events you can listen to for logging, analytics, or extending behavior. These events bubble, so you can attach listeners higher up the DOM tree if needed.
 
-1. `ai-paste-extracted` - Fired when data is successfully extracted:
+> [!NOTE]
+> If you are using a **Controlled Form** with React you will need to listen to the `ai-paste-extracted` event to update your form state.
 
-```javascript
+`ai-paste-extracted`
+
+```ts
 document.querySelector("ai-paste").addEventListener("ai-paste-extracted", (event) => {
   const extractedData = event.detail;
+
   console.log("Extracted data:", extractedData);
 });
 ```
 
-2. `ai-paste-error` - Fired when an error occurs:
+`ai-paste-error`
+Fired when an error occurs during extraction (e.g. network failure, invalid API key, etc.).
 
-```javascript
+```ts
 document.querySelector("ai-paste").addEventListener("ai-paste-error", (event) => {
   const error = event.detail;
   console.error("Error:", error);
 });
-```
-
-## Development
-
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
 ```
