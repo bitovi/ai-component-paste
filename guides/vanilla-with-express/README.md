@@ -537,7 +537,7 @@ Second, in the `<head>` of `index.html`.
 
 With tailwind setup you can style your form however you'd like, to match the screenshot above use the following `<form>`
 
-````html
+```html
 <!-- Paste this inside <div id="app"> -->
 <div class="w-full lg:w-[600px]">
   <div class="flex-1 bg-white rounded-xl shadow-lg overflow-hidden border border-neutral-100">
@@ -658,10 +658,11 @@ With tailwind setup you can style your form however you'd like, to match the scr
   </div>
   <div class="mt-6 text-center text-neutral-500 text-sm">Your job posting will be reviewed within 24 hours</div>
 </div>
-``` That's it — you now have a fully functional, AI-powered job posting form, styled with Tailwind, backed by Express,
+```
+
+That's it — you now have a fully functional, AI-powered job posting form, styled with Tailwind, backed by Express,
 and ready to save your users hours of manual entry.
 
 <div align="center">
   <img src="./images/completed-project.png" alt="Completed Project" />
 </div>
-````
