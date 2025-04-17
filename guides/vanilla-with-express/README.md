@@ -119,7 +119,7 @@ Once done, your project should look like this:
 └── tsconfig.json
 ```
 
-With our project scaffolded and development scripts in place, we’re ready to build the Express server that will handle AI-powered form extraction.
+With our project scaffolded and development scripts in place, we're ready to build the Express server that will handle AI-powered form extraction.
 
 ### Building the Server
 
@@ -173,7 +173,7 @@ app.listen(port, () => {
 });
 ```
 
-Now that we’ve confirmed our server is up and running, let’s integrate the AI extraction logic using `@bitovi/ai-component-paste`.
+Now that we've confirmed our server is up and running, let's integrate the AI extraction logic using `@bitovi/ai-component-paste`.
 
 ### Integrating `@bitovi/ai-component-paste`
 
@@ -183,11 +183,11 @@ Next we can install and use `@bitovi/ai-component-paste`
 npm install @bitovi/ai-component-paste
 ```
 
-We’ll also need to configure our environment. In the `.env` file you created earlier, add your OpenAI API key:
+We'll also need to configure our environment. In the `.env` file you created earlier, add your OpenAI API key:
 
 > [!NOTE]
 >
-> Need help creating an OpenAI key? Check out our guide to getting one
+> Need help creating an OpenAI key? Check out [our guide to getting one](../open-ai-key)
 > to help you get set up.
 
 ```
@@ -201,9 +201,9 @@ OPENAI_API_KEY=your-openai-key-here
 
 ### Creating the Extraction Endpoint
 
-Next, we’ll define a `POST` endpoint that the `<ai-paste>` component can call. This endpoint will receive clipboard text along with scraped form field metadata and return the AI-generated form values.
+Next, we'll define a `POST` endpoint that the `<ai-paste>` component can call. This endpoint will receive clipboard text along with scraped form field metadata and return the AI-generated form values.
 
-We’ll call this route `/extract-form-data` and the request body should include:
+We'll call this route `/extract-form-data` and the request body should include:
 
 - **text** - the clipboard content
 - **fields** - the list of form fields scraped from the page
@@ -217,7 +217,7 @@ interface AIComponentPasteRequestBody {
 }
 ```
 
-With the request shape defined, let’s build the Express route that will handle incoming data from `<ai-paste>`, pass it to the AI model, and return the structured result. `extractFormData` takes care of calling the LLM and returning structured values that match your form fields.
+With the request shape defined, let's build the Express route that will handle incoming data from `<ai-paste>`, pass it to the AI model, and return the structured result. `extractFormData` takes care of calling the LLM and returning structured values that match your form fields.
 
 ```ts
 import { extractFormData, FormField } from "@bitovi/ai-component-paste/extractor";
@@ -249,7 +249,7 @@ With the backend in place and ready to handle extraction requests, we can now mo
 
 ## The Frontend
 
-We’ll use [Vite](https://vitejs.dev/) to scaffold a lightweight frontend project using plain HTML and TypeScript. This will serve the form that includes the `<ai-paste>` component.
+We'll use [Vite](https://vitejs.dev/) to scaffold a lightweight frontend project using plain HTML and TypeScript. This will serve the form that includes the `<ai-paste>` component.
 
 Start by creating a new Vite project:
 
@@ -271,15 +271,15 @@ npm install
 
 ### Cleaning Up the Starter Files
 
-Before we add our custom code, let’s remove the boilerplate that comes with Vite. Open the project in your editor and:
+Before we add our custom code, let's remove the boilerplate that comes with Vite. Open the project in your editor and:
 
 1. Clear out `main.ts` - Open `src/main.ts` and delete everything inside. We'll replace this with an import of the `@bitovi/ai-component-paste` package in a later step.
 
 2. Clear out `styles.css` - Open `src/styles.css` and delete everything inside. While we're getting the component added, were going to avoid styling, at the end, html with the needed tailwind class names will be provided
 
-3. Delete `counter.ts` - You won’t need the sample counter functionality.
+3. Delete `counter.ts` - You won't need the sample counter functionality.
 
-4. Delete `typescript.svg` - You won’t need the TypeScript logo.
+4. Delete `typescript.svg` - You won't need the TypeScript logo.
 
 With the boilerplate removed, your frontend project is now ready for the form and AI integration.
 
@@ -365,7 +365,7 @@ Then navigate to `http://localhost:5173` — you should see an unstyled form ren
 
 ### Integrating `@bitovi/ai-component-paste`
 
-Now let’s bring the form to life by wiring up the `<ai-paste>` component so it can scrape the form, read the clipboard, and call our backend.
+Now let's bring the form to life by wiring up the `<ai-paste>` component so it can scrape the form, read the clipboard, and call our backend.
 
 First, install the component package:
 
@@ -388,7 +388,11 @@ Now, wire it up to your backend by setting the `api` attribute in `index.html`. 
 </div>
 ```
 
-That’s it! When users paste text into the page and click the AI Paste button, the component will:
+<div align="center">
+  <img src="./images/with-paste.png" alt="Unstyled Form With AI Paste" />
+</div>
+
+That's it! When users paste text into the page and click the AI Paste button, the component will:
 
 - Scrape the form fields
 - Read clipboard contents
@@ -412,8 +416,12 @@ npm run dev
 Once both are running, copy the text below and click the AI Paste button in your form:
 
 ```
-We’re hiring a Senior Frontend Developer in San Francisco, CA. The role is full-time and remote friendly, with a salary range between $120,000 and $140,000. Ideally, the candidate starts on July 1st. They can reach out to hiring@coolstartup.com with any questions. This position is part of the engineering department and includes building modern, performant UIs.
+We're hiring a Senior Frontend Developer in San Francisco, CA. The role is full-time and remote friendly, with a salary range between $120,000 and $140,000. Ideally, the candidate starts on July 1st. They can reach out to hiring@coolstartup.com with any questions. This position is part of the engineering department and includes building modern, performant UIs.
 ```
+
+<div align="center">
+  <img src="./images/click-paste.png" alt="Unstyled Form With AI Paste Highlighted" />
+</div>
 
 Once pasted the form should be filled out, AI is non-deterministic so it might not be the same as the image below, but it should look similar
 
@@ -423,7 +431,7 @@ Once pasted the form should be filled out, AI is non-deterministic so it might n
 
 ## Improvements to the App
 
-At this point, you have a working integration! If you’re just looking for a basic copy-to-form experience, you’re good to go.
+At this point, you have a working integration! If you're just looking for a basic copy-to-form experience, you're good to go.
 
 However, if you want to level up your app with better error handling, helpful field descriptions, and basic styling — read on.
 
@@ -431,7 +439,7 @@ However, if you want to level up your app with better error handling, helpful fi
 
 If something goes wrong during extraction — like a network issue or a missing API key — the `<ai-paste>` component will emit a custom `ai-paste-error` event container an `Error` in the `detail`.
 
-You can listen for this event to surface meaningful feedback to users. For example, let’s display a simple alert when something fails.
+You can listen for this event to surface meaningful feedback to users. For example, let's display a simple alert when something fails.
 
 Open `src/main.ts` in the frontend project and add an event listener on `<ai-paste>`.
 
@@ -455,7 +463,7 @@ You can test this by stopping the backend and trying to paste again. You should 
 
 ## Adding Descriptions
 
-Sometimes, a field name alone isn’t enough for the AI to understand how to fill it correctly — especially for inputs like dates or open-ended fields like job descriptions. To help the model make more accurate decisions, you can add `data-sp-description` attributes to your form fields. These descriptions are sent to the AI as context and can dramatically improve extraction accuracy.
+Sometimes, a field name alone isn't enough for the AI to understand how to fill it correctly — especially for inputs like dates or open-ended fields like job descriptions. To help the model make more accurate decisions, you can add `data-sp-description` attributes to your form fields. These descriptions are sent to the AI as context and can dramatically improve extraction accuracy.
 
 For the start date, you can clarify the expected format by updating the `<input name='startDate'>` in `index.html`.
 
@@ -529,123 +537,131 @@ Second, in the `<head>` of `index.html`.
 
 With tailwind setup you can style your form however you'd like, to match the screenshot above use the following `<form>`
 
-```html
+````html
 <!-- Paste this inside <div id="app"> -->
-<form class="p-8">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div class="space-y-2 md:col-span-2">
-      <label for="title" class="block text-sm font-medium text-neutral-700"> Job Title </label>
-      <input
-        id="title"
-        name="title"
-        class="w-full h-12 px-4 bg-neutral-50 border border-neutral-200 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none transition-colors placeholder-neutral-400"
-        placeholder="e.g. Senior Frontend Developer"
-      />
+<div class="w-full lg:w-[600px]">
+  <div class="flex-1 bg-white rounded-xl shadow-lg overflow-hidden border border-neutral-100">
+    <div class="h-1.5 w-full bg-neutral-100">
+      <div class="h-full w-full bg-gradient-to-r from-violet-400 to-blue-500 rounded-r-full"></div>
     </div>
-
-    <div class="space-y-2">
-      <label for="location" class="block text-sm font-medium text-neutral-700"> Location </label>
-      <input
-        id="location"
-        name="location"
-        class="w-full h-12 px-4 bg-neutral-50 border border-neutral-200 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none transition-colors placeholder-neutral-400"
-        placeholder="e.g. San Francisco, CA"
-      />
-    </div>
-
-    <div class="space-y-2">
-      <label for="salary" class="block text-sm font-medium text-neutral-700"> Salary Range </label>
-      <input
-        id="salary"
-        name="salary"
-        class="w-full h-12 px-4 bg-neutral-50 border border-neutral-200 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none transition-colors placeholder-neutral-400"
-        placeholder="e.g. $80,000 - $120,000"
-      />
-    </div>
-
-    <div class="space-y-2">
-      <label for="contractType" class="block text-sm font-medium text-neutral-700"> Contract Type </label>
-      <div class="relative">
-        <select
-          id="contractType"
-          name="contractType"
-          class="w-full h-12 px-4 bg-neutral-50 border border-neutral-200 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none transition-colors appearance-none"
-        >
-          <option value="" selected disabled>Select contract type</option>
-          <option value="full-time">Full-time</option>
-          <option value="part-time">Part-time</option>
-          <option value="contract">Contract</option>
-          <option value="internship">Internship</option>
-        </select>
-        <div class="absolute right-3 top-3.5 text-neutral-400 pointer-events-none"></div>
-      </div>
-    </div>
-
-    <div class="space-y-2">
-      <label for="startDate" class="block text-sm font-medium text-neutral-700"> Start Date </label>
-      <input
-        type="date"
-        id="startDate"
-        name="startDate"
-        data-sp-description="All responses must be in YYYY-mm-dd format"
-        class="w-full h-12 px-4 bg-neutral-50 border border-neutral-200 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none transition-colors text-neutral-700"
-      />
-    </div>
-
-    <div class="space-y-2">
-      <label class="block text-sm font-medium text-neutral-700 mb-3">Remote Friendly?</label>
-      <label class="inline-flex items-center cursor-pointer">
-        <span class="mr-3 text-sm text-neutral-600">No</span>
-        <div class="relative">
-          <input type="checkbox" id="remote" name="remote" class="sr-only peer" />
-          <div
-            class="w-11 h-6 bg-neutral-200 rounded-full peer peer-focus:ring-2 peer-focus:ring-violet-100 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-violet-500"
-          ></div>
+    <form class="p-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-2 md:col-span-2">
+          <label htmlFor="title" class="block text-sm font-medium text-neutral-700"> Job Title </label>
+          <input
+            id="title"
+            name="title"
+            class="w-full h-12 px-4 bg-neutral-50 border border-neutral-200 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none transition-colors placeholder-neutral-400"
+            placeholder="e.g. Senior Frontend Developer"
+          />
         </div>
-        <span class="ml-3 text-sm text-neutral-600">Yes</span>
-      </label>
-    </div>
 
-    <div class="space-y-2 md:col-span-2">
-      <label for="email" class="block text-sm font-medium text-neutral-700"> Contact Email </label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        class="w-full h-12 px-4 bg-neutral-50 border border-neutral-200 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none transition-colors placeholder-neutral-400"
-        placeholder="contact@company.com"
-      />
-    </div>
+        <div class="space-y-2">
+          <label htmlFor="location" class="block text-sm font-medium text-neutral-700"> Location </label>
+          <input
+            id="location"
+            name="location"
+            class="w-full h-12 px-4 bg-neutral-50 border border-neutral-200 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none transition-colors placeholder-neutral-400"
+            placeholder="e.g. San Francisco, CA"
+          />
+        </div>
 
-    <div class="space-y-2 md:col-span-2">
-      <label for="description" class="block text-sm font-medium text-neutral-700"> Job Description </label>
-      <textarea
-        id="description"
-        name="description"
-        data-sp-description="Contains details about what the hired employee will do at the job. Responses should be full sentences about job starting with an ideal candidate..."
-        class="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none transition-colors placeholder-neutral-400 resize-none"
-        placeholder="Describe the role, responsibilities, and requirements..."
-      ></textarea>
-    </div>
+        <div class="space-y-2">
+          <label htmlFor="salary" class="block text-sm font-medium text-neutral-700"> Salary Range </label>
+          <input
+            id="salary"
+            name="salary"
+            class="w-full h-12 px-4 bg-neutral-50 border border-neutral-200 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none transition-colors placeholder-neutral-400"
+            placeholder="e.g. $80,000 - $120,000"
+          />
+        </div>
+
+        <div class="space-y-2">
+          <label htmlFor="contractType" class="block text-sm font-medium text-neutral-700"> Contract Type </label>
+          <div class="relative">
+            <select
+              id="contractType"
+              name="contractType"
+              class="w-full h-12 px-4 bg-neutral-50 border border-neutral-200 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none transition-colors appearance-none"
+            >
+              <option value="" selected disabled>Select contract type</option>
+              <option value="full-time">Full-time</option>
+              <option value="part-time">Part-time</option>
+              <option value="contract">Contract</option>
+              <option value="internship">Internship</option>
+            </select>
+            <div class="absolute right-3 top-3.5 text-neutral-400 pointer-events-none"></div>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label htmlFor="startDate" class="block text-sm font-medium text-neutral-700"> Start Date </label>
+          <input
+            type="date"
+            id="startDate"
+            name="startDate"
+            data-sp-description="All responses must be in YYYY-mm-dd format"
+            class="w-full h-12 px-4 bg-neutral-50 border border-neutral-200 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none transition-colors text-neutral-700"
+          />
+        </div>
+
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-neutral-700 mb-3">Remote Friendly?</label>
+          <label class="inline-flex items-center cursor-pointer">
+            <span class="mr-3 text-sm text-neutral-600">No</span>
+            <div class="relative">
+              <input type="checkbox" id="remote" name="remote" class="sr-only peer" />
+              <div
+                class="w-11 h-6 bg-neutral-200 rounded-full peer peer-focus:ring-2 peer-focus:ring-violet-100 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-neutral-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-violet-500"
+              ></div>
+            </div>
+            <span class="ml-3 text-sm text-neutral-600">Yes</span>
+          </label>
+        </div>
+
+        <div class="space-y-2 md:col-span-2">
+          <label htmlFor="email" class="block text-sm font-medium text-neutral-700"> Contact Email </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="w-full h-12 px-4 bg-neutral-50 border border-neutral-200 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none transition-colors placeholder-neutral-400"
+            placeholder="contact@company.com"
+          />
+        </div>
+
+        <div class="space-y-2 md:col-span-2">
+          <label htmlFor="description" class="block text-sm font-medium text-neutral-700"> Job Description </label>
+          <textarea
+            id="description"
+            name="description"
+            data-sp-description="Contains details about what the hired employee will do at the job. Responses should be full sentences about job starting with an ideal candidate..."
+            class="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-lg focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none transition-colors placeholder-neutral-400 resize-none"
+            placeholder="Describe the role, responsibilities, and requirements..."
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="mt-10 flex justify-between items-center border-t border-neutral-100 pt-6">
+        <ai-paste
+          class="px-6 py-2.5 border border-neutral-200 text-neutral-600 font-medium rounded-lg hover:bg-neutral-50 transition-colors hover:cursor-pointer"
+        ></ai-paste>
+
+        <button
+          type="submit"
+          class="px-8 py-3 bg-violet-500 text-white font-medium rounded-lg shadow-sm hover:bg-blue-600 transition-colors hover:cursor-pointer"
+        >
+          Post Job
+        </button>
+      </div>
+    </form>
   </div>
-
-  <div class="mt-10 flex justify-between items-center border-t border-neutral-100 pt-6">
-    <ai-paste
-      class="px-6 py-2.5 border border-neutral-200 text-neutral-600 font-medium rounded-lg hover:bg-neutral-50 transition-colors hover:cursor-pointer"
-    ></ai-paste>
-
-    <button
-      type="submit"
-      class="px-8 py-3 bg-violet-500 text-white font-medium rounded-lg shadow-sm hover:bg-blue-600 transition-colors hover:cursor-pointer"
-    >
-      Post Job
-    </button>
-  </div>
-</form>
-```
-
-That’s it — you now have a fully functional, AI-powered job posting form, styled with Tailwind, backed by Express, and ready to save your users hours of manual entry.
+  <div class="mt-6 text-center text-neutral-500 text-sm">Your job posting will be reviewed within 24 hours</div>
+</div>
+``` That's it — you now have a fully functional, AI-powered job posting form, styled with Tailwind, backed by Express,
+and ready to save your users hours of manual entry.
 
 <div align="center">
   <img src="./images/completed-project.png" alt="Completed Project" />
 </div>
+````
