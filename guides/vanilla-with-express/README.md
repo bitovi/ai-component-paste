@@ -113,7 +113,7 @@ Once done, your project should look like this:
 └── node_modules
 ├── src/
 │   └── index.ts (this file is empty)
-└── .env (this file is)
+└── .env (this file is empty)
 └── package.json
 └── package-lock.json
 └── tsconfig.json
@@ -123,7 +123,7 @@ With our project scaffolded and development scripts in place, we're ready to bui
 
 ### Building the Server
 
-Next, we'll need to create the server itself. Open the `src/index.ts` file and add teh following code:
+Next, we'll need to create the server itself. Open the `src/index.ts` file and add the following code:
 
 ```ts
 import express, { Request, Response } from "express";
@@ -379,7 +379,7 @@ Then open `src/main.ts` and add the following import to register the web compone
 import "@bitovi/ai-component-paste/component";
 ```
 
-Now, wire it up to your backend by setting the `api` attribute in `index.html`. Update the `<ai-paste>` element to point to your local extraction endpoint:
+Now, Add <ai-paste /> next to the "Post Job" button and set the `api` attribute to your backend extraction endpoint:
 
 ```html
 <div>
@@ -510,7 +510,7 @@ Finally, we need to import our css. This has to be done in two places. First, At
 
 ```diff
 import "@bitovi/ai-component-paste/component";
-+ import "./style.css";
++ import "./styles.css";
 
 const isAIPasteError = (event: Event): event is CustomEvent<Error> => {
   return "detail" in event && event.detail instanceof Error;
