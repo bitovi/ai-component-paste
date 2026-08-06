@@ -28,7 +28,7 @@ AI Component Paste solves a common frustration, manually transferring data from 
 
 Behind the scenes, this web component extracts text from your clipboard and sends it to your server. There, our extractor function leverages OpenAI's GPT models to intelligently parse the data and match it to your form fields—creating a seamless, error-free data entry experience.
 
-**[Try the live demo](https://ai-component-paste.bitovi-sandbox.com/)** to see it in action.
+**[Try the live demo](https://ai-component-paste.bitovi-tools.com/)** to see it in action.
 
 ## Installation
 
